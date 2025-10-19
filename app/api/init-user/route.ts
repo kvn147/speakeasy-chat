@@ -1,18 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getAuth } from 'firebase-admin/auth';
-import * as admin from 'firebase-admin';
+import { auth } from '@/app/lib/firebase/adminConfig';
 import { generateExampleConversations } from '@/app/lib/generateExamples';
-
-// Initialize Firebase Admin (singleton pattern)
-if (!admin.apps.length) {
-  admin.initializeApp({
-    credential: admin.credential.cert({
-      projectId: process.env.FIREBASE_ADMIN_PROJECT_ID,
-      clientEmail: process.env.FIREBASE_ADMIN_CLIENT_EMAIL,
-      privateKey: process.env.FIREBASE_ADMIN_PRIVATE_KEY?.replace(/\\n/g, '\n'),
-    }),
-  });
-}
 
 /**
  * POST /api/init-user
@@ -33,7 +21,7 @@ export async function POST(request: NextRequest) {
     console.log('🔐 Token received, verifying...');
 
     // Verify the token
-    const decodedToken = await getAuth().verifyIdToken(token);
+    const decodedToken = await auth.verifyIdToken(token);
     const userId = decodedToken.uid;
     console.log('✅ Token verified for user:', userId);
 

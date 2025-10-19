@@ -6,7 +6,10 @@ A secure, Notion-like markdown conversation viewer built with Next.js 15, React 
 
 - 🔐 **Firebase Authentication** - Secure email/password authentication
 - 📝 **Markdown Visualization** - Beautiful rendering of markdown conversations with dialogue, feedback, and summaries
-- 🔒 **User Isolation** - Each user can only access their own conversations
+- 🤖 **AI-Powered Summarization** - Auto-generate conversation summaries using Google's Gemini API
+- 💬 **Speaking Feedback** - Get AI-powered communication and speaking feedback for conversations
+- � **Intelligent News Parser** - Automatically fetch relevant news articles based on conversation topics using RSS feeds + Gemini AI
+- �🔒 **User Isolation** - Each user can only access their own conversations
 - 🎨 **Notion-Inspired UI** - Clean, modern interface similar to Notion
 - 📱 **Responsive Design** - Works on desktop and mobile devices
 - ⚡ **Server-Side Security** - API routes verify user authentication before serving content
@@ -18,6 +21,8 @@ A secure, Notion-like markdown conversation viewer built with Next.js 15, React 
 - **UI Library:** React 19
 - **Language:** TypeScript
 - **Authentication:** Firebase Auth
+- **AI:** Google Gemini API (@google/genai)
+- **News Parsing:** RSS Parser (rss-parser)
 - **Markdown:** react-markdown, remark-gfm, rehype-raw
 - **Styling:** CSS with Tailwind directives
 - **Metadata Parsing:** gray-matter
@@ -96,7 +101,16 @@ speakeasy-react/
    - Generate a service account key
    - Copy `.env.local.example` to `.env.local` and fill in your credentials
 
-4. **Run the development server**
+4. **Set up Gemini API** (Optional but recommended for AI features)
+   
+   Follow the detailed instructions in [GEMINI_SETUP.md](./GEMINI_SETUP.md)
+   
+   Quick summary:
+   - Visit [Google AI Studio](https://ai.google.dev/)
+   - Create an API key
+   - Add it to your `.env.local` file as `GEMINI_API_KEY`
+
+5. **Run the development server**
    ```bash
    npm run dev
    ```

@@ -132,3 +132,55 @@ You can:
     exampleConversation
   );
 }
+
+/**
+ * Read a conversation file and return its content
+ */
+export async function readConversationFile(
+  userId: string,
+  conversationId: string
+): Promise<{ content: string; frontmatter: any } | null> {
+  const filePath = path.join(CONVERSATIONS_DIR, userId, `${conversationId}.md`);
+
+  if (!fs.existsSync(filePath)) {
+    return null;
+  }
+
+  const fileContents = fs.readFileSync(filePath, 'utf8');
+  const { data, content } = matter(fileContents);
+
+  return {
+    content,
+    frontmatter: data,
+  };
+}
+
+/**
+ * Update a conversation file with new frontmatter data
+ */
+export async function updateConversationFile(
+  userId: string,
+  conversationId: string,
+  updates: { summary?: string; feedback?: string }
+): Promise<boolean> {
+  const filePath = path.join(CONVERSATIONS_DIR, userId, `${conversationId}.md`);
+
+  if (!fs.existsSync(filePath)) {
+    return false;
+  }
+
+  const fileContents = fs.readFileSync(filePath, 'utf8');
+  const { data, content } = matter(fileContents);
+
+  // Merge updates into frontmatter
+  const updatedData = {
+    ...data,
+    ...updates,
+  };
+
+  // Reconstruct the file with updated frontmatter
+  const updatedFile = matter.stringify(content, updatedData);
+  fs.writeFileSync(filePath, updatedFile, 'utf8');
+
+  return true;
+}
