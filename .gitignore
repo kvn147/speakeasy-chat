@@ -1,0 +1,36 @@
+.env.local
+.env
+node_modules/
+.next/
+out/
+dist/
+build/
+
+# Firebase
+firebase-adminsdk-*.json
+service-account.json
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Testing
+coverage/
+.nyc_output/
+
+# User Conversations - DO NOT COMMIT USER DATA
+conversations/*/
+!conversations/README.md
+!conversations/.gitkeep
